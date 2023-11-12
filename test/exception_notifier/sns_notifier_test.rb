@@ -100,7 +100,7 @@ class SnsNotifierTest < ActiveSupport::TestCase
                       })
   end
 
-  test 'should put data from env["exception_notifier.exception_data"] into text' do
+  test "should put data from env['exception_notifier.exception_data'] into text" do
     controller = mock('controller')
     controller.stubs(:action_name).returns('index')
     controller.stubs(:controller_name).returns('examples')

@@ -11,7 +11,11 @@ require 'sidekiq/testing'
 require 'exception_notification/sidekiq'
 
 class MockSidekiqServer
-  include ::Sidekiq::ExceptionHandler
+  if ::Sidekiq::VERSION < '6'
+    include ::Sidekiq::ExceptionHandler
+  else
+    include ::Sidekiq::Component
+  end
 end
 
 class SidekiqTest < ActiveSupport::TestCase

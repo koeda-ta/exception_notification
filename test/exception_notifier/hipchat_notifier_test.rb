@@ -2,12 +2,19 @@
 
 require 'test_helper'
 require 'rack'
+require 'rails'
 
 # silence_warnings trick around require can be removed once
 # https://github.com/hipchat/hipchat-rb/pull/174
 # gets merged and released
-silence_warnings do
-  require 'hipchat'
+return unless defined?(::Rails) && ::Rails.respond_to?(:application)
+
+if Rails::VERSION::MAJOR >= 7
+  ActiveSupport::Deprecation.silenced = true
+else
+  silence_warnings do
+    require 'hipchat'
+  end
 end
 
 class HipchatNotifierTest < ActiveSupport::TestCase
